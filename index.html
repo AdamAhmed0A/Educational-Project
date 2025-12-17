@@ -15,11 +15,96 @@
     .then(data => {
       document.getElementById("hero-section").innerHTML = data;
     });
+    fetch("components/CTASection.html")
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById("cta-section").innerHTML = data;
+    });
+    fetch("components/FeaturesSection.html")
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById("features-section").innerHTML = data;
+    });
+  fetch("components/Footer.html")
+    .then(res => res.text())
+    .then(data => {
+      document.body.insertAdjacentHTML("beforeend", data);
+      const year = new Date().getFullYear();
+      document.getElementById("copyright").innerText = `© ${year} EduLearn. All rights reserved.`;
+    });
+
 </script>
 </head>
 <body>
     <div id="navbar"></div>
     <div id="hero-section"></div>
-    
+    <div id="cta-section"></div>
+    <div id="features-section"></div>
+    <footer id="contact" class="footer">
+    <script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show");
+      }
+    });
+  }, { threshold: 0.2 });
+
+  document.querySelectorAll(".fade-up").forEach(el => {
+    observer.observe(el);
+  });
+  /* Fade-up observer */
+const fadeObserver = new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show");
+      }
+    });
+  },
+  { threshold: 0.2 }
+);
+
+document.querySelectorAll(".fade-up").forEach(el => {
+  fadeObserver.observe(el);
+});
+
+/* Counter animation */
+const statObserver = new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+
+      const item = entry.target;
+      const numberEl = item.querySelector(".stat-number");
+      const target = parseInt(item.dataset.value, 10);
+      const suffix = item.dataset.suffix || "";
+      const duration = 2000;
+      const steps = 60;
+      let current = 0;
+      const increment = target / steps;
+
+      const interval = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          numberEl.textContent = target + suffix;
+          clearInterval(interval);
+        } else {
+          numberEl.textContent = Math.round(current) + suffix;
+        }
+      }, duration / steps);
+
+      statObserver.unobserve(item);
+    });
+  },
+  { threshold: 0.4 }
+);
+
+document.querySelectorAll(".stat-item").forEach(stat => {
+  statObserver.observe(stat);
+});
+
+</script>
+
 </body>
 </html>
