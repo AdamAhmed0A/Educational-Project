@@ -10,10 +10,16 @@
     .then(data => {
       document.getElementById("navbar").innerHTML = data;
     });
+  fetch("components/HeroSection.html")
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById("hero-section").innerHTML = data;
+    });
 </script>
 </head>
 <body>
     <div id="navbar"></div>
+    <div id="hero-section"></div>
     
 </body>
 </html>
