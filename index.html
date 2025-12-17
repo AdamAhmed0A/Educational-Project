@@ -3,60 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduTech Platform</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+<script>
+  fetch("components/Navbar.html")
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById("navbar").innerHTML = data;
+    });
+</script>
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">
-                <a href="index.html">EduTech</a>
-            </div>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="courses.html">Courses</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <main>
-        <section id="hero">
-            <h1>Welcome to EduSite</h1>
-            <p>Learn new skills online with our expert instructors.</p>
-            <a href="courses.html" class="cta-button">Explore Courses</a>
-        </section>
-
-        <section id="features">
-            <div class="feature-card">
-                <i class="fas fa-laptop"></i>
-                <h3>Online Learning</h3>
-                <p>Access courses anytime, anywhere.</p>
-            </div>
-
-            <div class="feature-card">
-                <i class="fas fa-user-graduate"></i>
-                <h3>Expert Instructors</h3>
-                <p>Learn from industry professionals.</p>
-            </div>
-
-            <div class="feature-card">
-                <i class="fas fa-certificate"></i>
-                <h3>Certification</h3>
-                <p>Earn certificates upon course completion.</p>
-            </div>
-
-        </section>
-
-        <!-- Add more sections as needed -->
-    </main>
-
-    <!-- Footer -->
-    <!-- Add footer content here -->
-
-    <!-- Scripts -->
-    <!-- Add script links here -->
-
+    <div id="navbar"></div>
+    
 </body>
 </html>
