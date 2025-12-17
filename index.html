@@ -15,32 +15,52 @@
     .then(data => {
       document.getElementById("hero-section").innerHTML = data;
     });
-    fetch("components/CTASection.html")
+fetch("components/CoursesSection.html")
     .then(res => res.text())
     .then(data => {
-      document.getElementById("cta-section").innerHTML = data;
+      document.body.insertAdjacentHTML("beforeend", data);
     });
     fetch("components/FeaturesSection.html")
     .then(res => res.text())
     .then(data => {
       document.getElementById("features-section").innerHTML = data;
     });
-  fetch("components/Footer.html")
+    fetch("components/StatsSection.html")
     .then(res => res.text())
     .then(data => {
       document.body.insertAdjacentHTML("beforeend", data);
-      const year = new Date().getFullYear();
-      document.getElementById("copyright").innerText = `© ${year} EduLearn. All rights reserved.`;
     });
-
+    
+    fetch("components/TestimonialsSection.html")
+    .then(res => res.text())
+    .then(data => {
+      document.body.insertAdjacentHTML("beforeend", data);
+    });
+    
+        fetch("components/CTASection.html")
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById("cta-section").innerHTML = data;
+    });
+    fetch("components/Footer.html")
+      .then(res => res.text())
+      .then(data => {
+        document.body.insertAdjacentHTML("beforeend", data);
+        const year = new Date().getFullYear();
+        document.getElementById("copyright").innerText = `© ${year} EduLearn. All rights reserved.`;
+      });
 </script>
 </head>
 <body>
     <div id="navbar"></div>
     <div id="hero-section"></div>
-    <div id="cta-section"></div>
+    <div id="courses-section"></div>
     <div id="features-section"></div>
-    <footer id="contact" class="footer">
+    <div id="stats-section"></div>
+    <div id="testimonials-section"></div>
+    <div id="cta-section"></div>
+    <div id="footer"></div>
+    
     <script>
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {

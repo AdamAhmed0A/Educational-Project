@@ -1,0 +1,134 @@
+<section id="courses" class="courses-section">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="courses-header fade-up">
+      <div class="badge secondary">Popular Courses</div>
+      <h2>Expand Your Knowledge</h2>
+      <p>Choose from hundreds of courses taught by industry experts and start your learning journey today.</p>
+    </div>
+
+    <!-- Course Grid -->
+    <div class="courses-grid">
+      <!-- Course 1 -->
+      <article class="course-card fade-up">
+        <div class="course-image">
+          <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&q=80" alt="Web Development Bootcamp">
+          <div class="overlay"></div>
+          <div class="badge featured">Featured</div>
+          <div class="badge secondary">Development</div>
+        </div>
+        <div class="course-content">
+          <h3>Web Development Bootcamp</h3>
+          <p>Master HTML, CSS, JavaScript, and React from scratch</p>
+          <div class="course-meta">
+            <span>⏱ 12 weeks</span>
+            <span>👥 2,340</span>
+            <span class="rating">★ 4.9</span>
+          </div>
+          <div class="course-cta">
+            <span class="price">$99</span>
+            <button class="enroll-btn">
+              Enroll →
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Course 2 -->
+      <article class="course-card fade-up">
+        <div class="course-image">
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80" alt="Data Science Fundamentals">
+          <div class="overlay"></div>
+          <div class="badge secondary">Data Science</div>
+        </div>
+        <div class="course-content">
+          <h3>Data Science Fundamentals</h3>
+          <p>Learn Python, statistics, and machine learning basics</p>
+          <div class="course-meta">
+            <span>⏱ 10 weeks</span>
+            <span>👥 1,850</span>
+            <span class="rating">★ 4.8</span>
+          </div>
+          <div class="course-cta">
+            <span class="price">$89</span>
+            <button class="enroll-btn">
+              Enroll →
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Course 3 -->
+      <article class="course-card fade-up">
+        <div class="course-image">
+          <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&q=80" alt="UI/UX Design Mastery">
+          <div class="overlay"></div>
+          <div class="badge secondary">Design</div>
+        </div>
+        <div class="course-content">
+          <h3>UI/UX Design Mastery</h3>
+          <p>Create stunning user interfaces and experiences</p>
+          <div class="course-meta">
+            <span>⏱ 8 weeks</span>
+            <span>👥 1,520</span>
+            <span class="rating">★ 4.9</span>
+          </div>
+          <div class="course-cta">
+            <span class="price">$79</span>
+            <button class="enroll-btn">
+              Enroll →
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Course 4 -->
+      <article class="course-card fade-up">
+        <div class="course-image">
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80" alt="Digital Marketing Pro">
+          <div class="overlay"></div>
+          <div class="badge secondary">Marketing</div>
+        </div>
+        <div class="course-content">
+          <h3>Digital Marketing Pro</h3>
+          <p>Master SEO, social media, and content marketing</p>
+          <div class="course-meta">
+            <span>⏱ 6 weeks</span>
+            <span>👥 2,100</span>
+            <span class="rating">★ 4.7</span>
+          </div>
+          <div class="course-cta">
+            <span class="price">$69</span>
+            <button class="enroll-btn">
+              Enroll →
+            </button>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- View All Button -->
+    <div class="view-all fade-up">
+      <button class="view-all-btn">
+        View All Courses →
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+        }
+      });
+    },
+    { threshold: 0.2 }
+  );
+
+  document.querySelectorAll(".fade-up").forEach(el => {
+    observer.observe(el);
+  });
+</script>
