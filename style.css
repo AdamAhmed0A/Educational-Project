@@ -20,6 +20,7 @@
       min-height: 200vh; /* for scroll testing */
       background: #0f172a;
       color: var(--text);
+      scroll-behavior: smooth;
     }
 
     /* NAVBAR */
@@ -1181,4 +1182,11 @@
 .fade-up.show {
   opacity: 1;
   transform: translateY(0);
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #f59e0b; /* accent color */
+  transition: all 0.3s ease;
 }
