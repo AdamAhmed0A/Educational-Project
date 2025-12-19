@@ -1,74 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EduLearn Navbar</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EduLearn Navbar</title>
     <link rel="stylesheet" href="../style.css" />
-</head>
-<body>
+  </head>
+  <body>
+    <nav>
+      <div class="container">
+        <div class="nav-inner">
+          <!-- Logo -->
+          <a href="#" class="logo">
+            <div class="logo-icon">🎓</div>
+            <span>EduTech</span>
+          </a>
 
-<nav>
-  <div class="container">
-    <div class="nav-inner">
+          <!-- Desktop Links -->
+          <div class="nav-links">
+            <a href="#courses">Courses</a>
+            <a href="#features">Features</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+          </div>
 
-      <!-- Logo -->
-      <a href="#" class="logo">
-        <div class="logo-icon">🎓</div>
-        <span>EduTech</span>
-      </a>
+          <!-- Desktop CTA -->
+          <div class="nav-cta">
+            <button class="btn btn-ghost">Log In</button>
+            <button class="btn btn-primary">Get Started</button>
+          </div>
 
-      <!-- Desktop Links -->
-      <div class="nav-links">
-        <a href="#courses">Courses</a>
-        <a href="#features">Features</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-      </div>
+          <!-- Mobile Button -->
+          <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">
+            ☰
+          </button>
+          <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">
+            🌙
+          </button>
+        </div>
 
-      <!-- Desktop CTA -->
-      <div class="nav-cta">
-        <button class="btn btn-ghost">Log In</button>
-        <button class="btn btn-primary">Get Started</button>
-      </div>
-
-      <!-- Mobile Button -->
-      <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">☰</button>
-
-    </div>
-
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-      <div class="mobile-inner">
-        <a href="#courses">Courses</a>
-        <a href="#features">Features</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-        <div class="mobile-cta">
-          <button class="btn btn-ghost">Log In</button>
-          <button class="btn btn-primary">Get Started</button>
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+          <div class="mobile-inner">
+            <a href="#courses">Courses</a>
+            <a href="#features">Features</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+            <div class="mobile-cta">
+              <button class="btn btn-ghost">Log In</button>
+              <button class="btn btn-primary">Get Started</button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </nav>
 
-  </div>
-</nav>
-
-<main class="container">
-  
-</main>
-
-<script>
-  const menuBtn = document.getElementById('menuBtn');
-  const mobileMenu = document.getElementById('mobileMenu');
-  let open = false;
-
-  menuBtn.addEventListener('click', () => {
-    open = !open;
-    mobileMenu.classList.toggle('open', open);
-    menuBtn.textContent = open ? '✕' : '☰';
-  });
-</script>
-
-</body>
+    <main class="container"></main>
+  </body>
 </html>
