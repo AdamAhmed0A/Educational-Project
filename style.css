@@ -478,7 +478,7 @@
       max-width: 640px;
       margin: auto;
       font-size: 1.1rem;
-      color: rgba(248, 250, 252, 0.7);
+      color: var(--text);
     }
 
     .badge {
@@ -491,12 +491,12 @@
 
     .badge.secondary {
       background: rgba(100, 116, 139, 0.3);
-      color: #f8fafc;
+      color: var(--text);
     }
 
     .badge.featured {
       background: #f59e0b;
-      color: #020617;
+      color: var(--text);
     }
 
     /* Grid */
@@ -599,7 +599,7 @@
       display: flex;
       gap: 1rem;
       font-size: 0.8rem;
-      color: rgba(248, 250, 252, 0.6);
+      color: var(--text);
       margin-bottom: 1rem;
     }
 
@@ -633,7 +633,7 @@
     .enroll-btn:hover,
     .view-all-btn:hover {
       background: #f59e0b;
-      color: #020617;
+      color: var(--text);
     }
 
     .view-all {
@@ -1262,12 +1262,12 @@
 
     .author strong {
       display: block;
-      color: #f8fafc;
+      color: var(--text);
     }
 
     .author span {
       font-size: 0.9rem;
-      color: rgba(248, 250, 252, 0.6);
+      color: var(--text);
     }
 
     /* Fade-up animation (shared) */
