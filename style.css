@@ -300,7 +300,7 @@
     }
 
     .hero p {
-      color: rgba(248, 250, 252, 0.7);
+      color: var(--text);
       font-size: 1.125rem;
       max-width: 650px;
       margin: 0 auto 3rem;
@@ -322,7 +322,7 @@
 
     .btn-accent {
       background: #fbbf24;
-      color: #020617;
+      color: var(--text);
     }
 
     .btn-outline {
