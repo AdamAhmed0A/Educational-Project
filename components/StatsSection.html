@@ -12,25 +12,59 @@
     <!-- Stats Grid -->
     <div class="stats-grid">
       <div class="stat-item fade-up" data-value="50" data-suffix="K+">
-        <div class="stat-number">0</div>
+        <div class="stat-number">6000</div>
         <div class="stat-label">Students Enrolled</div>
       </div>
 
       <div class="stat-item fade-up" data-value="200" data-suffix="+">
-        <div class="stat-number">0</div>
+        <div class="stat-number">5000</div>
         <div class="stat-label">Expert Courses</div>
       </div>
 
       <div class="stat-item fade-up" data-value="50" data-suffix="+">
-        <div class="stat-number">0</div>
+        <div class="stat-number">7000</div>
         <div class="stat-label">Countries Reached</div>
       </div>
 
       <div class="stat-item fade-up" data-value="95" data-suffix="%">
-        <div class="stat-number">0</div>
+        <div class="stat-number">953</div>
         <div class="stat-label">Satisfaction Rate</div>
       </div>
     </div>
   </div>
   
 </section>
+
+<script>
+  // Intersection Observer for fade-up
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show");
+
+        // Animate numbers
+        const statNumber = entry.target.querySelector('.stat-number');
+        const value = parseFloat(entry.target.dataset.value);
+        const suffix = entry.target.dataset.suffix || "";
+        let current = 0;
+        const duration = 2000; // 2 seconds
+        const steps = 60; // frames
+        const increment = value / steps;
+
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= value) {
+            statNumber.textContent = value + suffix;
+            clearInterval(timer);
+          } else {
+            statNumber.textContent = Math.round(current) + suffix;
+          }
+        }, duration / steps);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  document.querySelectorAll(".fade-up").forEach(el => {
+    observer.observe(el);
+  });
+</script>

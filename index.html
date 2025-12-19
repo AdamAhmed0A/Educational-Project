@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 <script>
   fetch("components/Navbar.html")
     .then(res => res.text())
@@ -45,6 +46,7 @@ fetch("components/CoursesSection.html")
     fetch("components/Footer.html")
       .then(res => res.text())
       .then(data => {
+        
         document.body.insertAdjacentHTML("beforeend", data);
         const year = new Date().getFullYear();
         document.getElementById("copyright").innerText = `© ${year} EduLearn. All rights reserved.`;
