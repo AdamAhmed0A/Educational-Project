@@ -1,0 +1,1581 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduTech - Code Documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        nav {
+            background: #f8fafc;
+            padding: 1rem 2rem;
+            border-bottom: 2px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #4f46e5;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        nav a:hover {
+            background: #4f46e5;
+            color: white;
+        }
+
+        .content {
+            padding: 2rem;
+        }
+
+        section {
+            margin-bottom: 3rem;
+        }
+
+        h2 {
+            color: #4f46e5;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #4f46e5;
+        }
+
+        h3 {
+            color: #6366f1;
+            font-size: 1.5rem;
+            margin: 1.5rem 0 1rem;
+        }
+
+        h4 {
+            color: #7c3aed;
+            font-size: 1.2rem;
+            margin: 1rem 0 0.5rem;
+        }
+
+        /* Code Editor Styles */
+        .code-editor {
+            background: #1e1e1e;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 1.5rem 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid #3e3e42;
+        }
+
+        .editor-header {
+            background: #2d2d30;
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #3e3e42;
+        }
+
+        .editor-tabs {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .editor-tab {
+            background: #1e1e1e;
+            color: #cccccc;
+            padding: 0.5rem 1rem;
+            border-radius: 6px 6px 0 0;
+            font-size: 0.85rem;
+            font-family: 'Consolas', 'Monaco', monospace;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .editor-tab.active {
+            background: #1e1e1e;
+            color: #ffffff;
+        }
+
+        .file-icon {
+            font-size: 1rem;
+        }
+
+        .editor-controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .editor-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .btn-close {
+            background: #ff5f56;
+        }
+
+        .btn-minimize {
+            background: #ffbd2e;
+        }
+
+        .btn-maximize {
+            background: #27c93f;
+        }
+
+        .editor-body {
+            display: flex;
+            max-height: 600px;
+            overflow: auto;
+        }
+
+        .line-numbers {
+            background: #1e1e1e;
+            color: #858585;
+            padding: 1rem 0;
+            text-align: right;
+            user-select: none;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            border-right: 1px solid #3e3e42;
+            min-width: 50px;
+        }
+
+        .line-numbers span {
+            display: block;
+            padding: 0 1rem;
+        }
+
+        .code-content {
+            flex: 1;
+            overflow-x: auto;
+        }
+
+        .code-content pre {
+            margin: 0;
+            padding: 1rem;
+            background: transparent !important;
+        }
+
+        .code-content code {
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            background: transparent !important;
+        }
+
+        .info-box {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 1rem 1.5rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+
+        .warning-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem 1.5rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+
+        .success-box {
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+            padding: 1rem 1.5rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+
+        .function-card {
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .function-card h4 {
+            margin-top: 0;
+        }
+
+        .param {
+            background: #fef3c7;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #ddd6fe;
+            color: #5b21b6;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin: 0.25rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        th,
+        td {
+            padding: 0.75rem;
+            text-align: left;
+            border: 1px solid #e5e7eb;
+        }
+
+        th {
+            background: #f3f4f6;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background: #f9fafb;
+        }
+
+        .line-range {
+            background: #e0e7ff;
+            color: #3730a3;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        footer {
+            background: #1f2937;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        /* Scrollbar Styling */
+        .editor-body::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        .editor-body::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+
+        .editor-body::-webkit-scrollbar-thumb {
+            background: #424242;
+            border-radius: 5px;
+        }
+
+        .editor-body::-webkit-scrollbar-thumb:hover {
+            background: #4e4e4e;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 0.5rem;
+            }
+
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            .content {
+                padding: 1rem;
+            }
+
+            .editor-body {
+                max-height: 400px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>🎓 EduTech Code Documentation</h1>
+            <p>Complete breakdown of JavaScript functions, HTML structure, and CSS sections</p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="#javascript">JavaScript Functions</a></li>
+                <li><a href="#html">HTML Structure</a></li>
+                <li><a href="#css">CSS Sections</a></li>
+                <li><a href="#components">Components</a></li>
+            </ul>
+        </nav>
+
+        <div class="content">
+            <!-- ==================== JAVASCRIPT SECTION ==================== -->
+            <section id="javascript">
+                <h2>📜 JavaScript Functions</h2>
+
+                <div class="info-box">
+                    <strong>File:</strong> <code>script.js</code> (91 lines)<br>
+                    <strong>Purpose:</strong> Handles dark/light theme switching and interactive controls
+                </div>
+
+                <!-- Function 1: applyTheme -->
+                <div class="function-card">
+                    <h4>🔧 applyTheme(theme)</h4>
+                    <p><span class="tag">Core Function</span> <span class="tag">Theme Management</span></p>
+
+                    <p><strong>Purpose:</strong> Applies the selected theme (dark or light) to the entire website</p>
+
+                    <p><strong>Parameters:</strong></p>
+                    <ul>
+                        <li><span class="param">theme</span> - String: Either "light" or "dark"</li>
+                    </ul>
+
+                    <p><strong>What it does:</strong></p>
+                    <ol>
+                        <li>Checks if theme is "light"</li>
+                        <li>If light: Sets <code>data-theme="light"</code> on HTML element and updates button to ☀️</li>
+                        <li>If dark: Removes <code>data-theme</code> attribute and updates button to 🌙</li>
+                        <li>Saves the theme preference to localStorage</li>
+                        <li>All CSS variables automatically update based on the data-theme attribute</li>
+                    </ol>
+
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <div class="editor-tab active">
+                                    <span class="file-icon">📄</span>
+                                    <span>script.js</span>
+                                </div>
+                            </div>
+                            <div class="editor-controls">
+                                <div class="editor-btn btn-close"></div>
+                                <div class="editor-btn btn-minimize"></div>
+                                <div class="editor-btn btn-maximize"></div>
+                            </div>
+                        </div>
+                        <div class="editor-body">
+                            <div class="line-numbers">
+                                <span>1</span>
+                                <span>2</span>
+                                <span>3</span>
+                                <span>4</span>
+                                <span>5</span>
+                                <span>6</span>
+                                <span>7</span>
+                                <span>8</span>
+                                <span>9</span>
+                                <span>10</span>
+                                <span>11</span>
+                                <span>12</span>
+                                <span>13</span>
+                            </div>
+                            <div class="code-content">
+                                <pre><code class="language-javascript">function applyTheme(theme) {
+    if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        // Update button if it exists
+        const themeToggle = document.getElementById('themeToggle');
+        if (themeToggle) themeToggle.textContent = '☀️';
+    } else {
+        root.removeAttribute('data-theme');
+        const themeToggle = document.getElementById('themeToggle');
+        if (themeToggle) themeToggle.textContent = '🌙';
+    }
+    localStorage.setItem('theme', theme);
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Function 2: initializeControls -->
+                <div class="function-card">
+                    <h4>🔧 initializeControls()</h4>
+                    <p><span class="tag">Initialization</span> <span class="tag">Event Listeners</span></p>
+
+                    <p><strong>Purpose:</strong> Attaches event listeners to interactive elements (menu button and theme
+                        toggle)</p>
+
+                    <p><strong>What it does:</strong></p>
+                    <ol>
+                        <li>Finds the menu button, mobile menu, and theme toggle button</li>
+                        <li><strong>Mobile Menu:</strong> Clones the menu button to remove old listeners, then adds
+                            click handler</li>
+                        <li><strong>Theme Toggle:</strong> Clones the theme button, sets initial icon, adds click
+                            handler</li>
+                        <li>Prevents duplicate event listeners by cloning elements</li>
+                    </ol>
+
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <div class="editor-tab active">
+                                    <span class="file-icon">📄</span>
+                                    <span>script.js</span>
+                                </div>
+                            </div>
+                            <div class="editor-controls">
+                                <div class="editor-btn btn-close"></div>
+                                <div class="editor-btn btn-minimize"></div>
+                                <div class="editor-btn btn-maximize"></div>
+                            </div>
+                        </div>
+                        <div class="editor-body">
+                            <div class="line-numbers">
+                                <span>1</span>
+                                <span>2</span>
+                                <span>3</span>
+                                <span>4</span>
+                                <span>5</span>
+                                <span>6</span>
+                                <span>7</span>
+                                <span>8</span>
+                                <span>9</span>
+                                <span>10</span>
+                                <span>11</span>
+                                <span>12</span>
+                                <span>13</span>
+                                <span>14</span>
+                                <span>15</span>
+                                <span>16</span>
+                                <span>17</span>
+                                <span>18</span>
+                                <span>19</span>
+                                <span>20</span>
+                                <span>21</span>
+                                <span>22</span>
+                                <span>23</span>
+                                <span>24</span>
+                                <span>25</span>
+                                <span>26</span>
+                                <span>27</span>
+                                <span>28</span>
+                            </div>
+                            <div class="code-content">
+                                <pre><code class="language-javascript">function initializeControls() {
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const themeToggle = document.getElementById('themeToggle');
+
+    // Mobile menu toggle
+    if (menuBtn && mobileMenu) {
+        const newMenuBtn = menuBtn.cloneNode(true);
+        menuBtn.parentNode.replaceChild(newMenuBtn, menuBtn);
+        
+        let open = false;
+        newMenuBtn.addEventListener('click', () => {
+            open = !open;
+            mobileMenu.classList.toggle('open', open);
+            newMenuBtn.textContent = open ? '✕' : '☰';
+        });
+    }
+
+    // Theme toggle
+    if (themeToggle) {
+        const newThemeToggle = themeToggle.cloneNode(true);
+        themeToggle.parentNode.replaceChild(newThemeToggle, themeToggle);
+        
+        newThemeToggle.addEventListener('click', () => {
+            const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+            applyTheme(current === 'light' ? 'dark' : 'light');
+        });
+    }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="success-box">
+                        <strong>✅ Key Feature:</strong> Uses element cloning to prevent duplicate event listeners when
+                        the function runs multiple times
+                    </div>
+                </div>
+
+                <!-- Function 3: waitForNavbar -->
+                <div class="function-card">
+                    <h4>🔧 waitForNavbar()</h4>
+                    <p><span class="tag">Async Handler</span> <span class="tag">Polling</span></p>
+
+                    <p><strong>Purpose:</strong> Waits for the navbar to load before initializing controls</p>
+
+                    <p><strong>What it does:</strong></p>
+                    <ol>
+                        <li>Finds the navbar element by ID</li>
+                        <li>Checks if navbar exists AND has content</li>
+                        <li>If loaded: Waits 100ms then calls initializeControls()</li>
+                        <li>If not loaded: Waits 50ms then checks again (recursive polling)</li>
+                    </ol>
+
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <div class="editor-tab active">
+                                    <span class="file-icon">📄</span>
+                                    <span>script.js</span>
+                                </div>
+                            </div>
+                            <div class="editor-controls">
+                                <div class="editor-btn btn-close"></div>
+                                <div class="editor-btn btn-minimize"></div>
+                                <div class="editor-btn btn-maximize"></div>
+                            </div>
+                        </div>
+                        <div class="editor-body">
+                            <div class="line-numbers">
+                                <span>1</span>
+                                <span>2</span>
+                                <span>3</span>
+                                <span>4</span>
+                                <span>5</span>
+                                <span>6</span>
+                                <span>7</span>
+                                <span>8</span>
+                                <span>9</span>
+                                <span>10</span>
+                            </div>
+                            <div class="code-content">
+                                <pre><code class="language-javascript">function waitForNavbar() {
+    const navbar = document.getElementById('navbar');
+    
+    if (navbar && navbar.innerHTML.trim() !== '') {
+        // Navbar is loaded, initialize controls
+        setTimeout(initializeControls, 100);
+    } else {
+        // Navbar not loaded yet, check again
+        setTimeout(waitForNavbar, 50);
+    }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>⚠️ Why needed:</strong> The navbar is loaded asynchronously via fetch(), so we need to
+                        wait for it before attaching event listeners
+                    </div>
+                </div>
+
+                <!-- IntersectionObserver for Animations -->
+                <div class="function-card">
+                    <h4>🔧 IntersectionObserver (Fade-up Animation)</h4>
+                    <p><span class="tag">Animation</span> <span class="tag">Scroll Effect</span></p>
+
+                    <p><strong>Location:</strong> <code>index.html</code> lines 67-92</p>
+
+                    <p><strong>Purpose:</strong> Animates elements when they scroll into view</p>
+
+                    <p><strong>What it does:</strong></p>
+                    <ol>
+                        <li>Creates an observer that watches for elements with class <code>.fade-up</code></li>
+                        <li>When element becomes 20% visible, adds class <code>.show</code></li>
+                        <li>CSS handles the actual animation (opacity 0→1, translateY 20px→0)</li>
+                    </ol>
+
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <div class="editor-tab active">
+                                    <span class="file-icon">🌐</span>
+                                    <span>index.html</span>
+                                </div>
+                            </div>
+                            <div class="editor-controls">
+                                <div class="editor-btn btn-close"></div>
+                                <div class="editor-btn btn-minimize"></div>
+                                <div class="editor-btn btn-maximize"></div>
+                            </div>
+                        </div>
+                        <div class="editor-body">
+                            <div class="line-numbers">
+                                <span>1</span>
+                                <span>2</span>
+                                <span>3</span>
+                                <span>4</span>
+                                <span>5</span>
+                                <span>6</span>
+                                <span>7</span>
+                                <span>8</span>
+                                <span>9</span>
+                                <span>10</span>
+                            </div>
+                            <div class="code-content">
+                                <pre><code class="language-javascript">const fadeObserver = new IntersectionObserver(
+    entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("show");
+            }
+        });
+    },
+    { threshold: 0.2 }
+);
+
+document.querySelectorAll(".fade-up").forEach(el => {
+    fadeObserver.observe(el);
+});</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Counter Animation -->
+                <div class="function-card">
+                    <h4>🔧 statObserver (Counter Animation)</h4>
+                    <p><span class="tag">Animation</span> <span class="tag">Numbers</span></p>
+
+                    <p><strong>Purpose:</strong> Animates numbers counting up in the stats section</p>
+
+                    <p><strong>How it works:</strong></p>
+                    <ol>
+                        <li>Watches elements with class <code>.stat-item</code></li>
+                        <li>When stat becomes 40% visible, starts animation</li>
+                        <li>Reads target number from <code>data-value</code> attribute</li>
+                        <li>Counts from 0 to target over 2 seconds in 60 steps</li>
+                        <li>Updates number every 33ms</li>
+                    </ol>
+
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <div class="editor-tab active">
+                                    <span class="file-icon">🌐</span>
+                                    <span>index.html</span>
+                                </div>
+                            </div>
+                            <div class="editor-controls">
+                                <div class="editor-btn btn-close"></div>
+                                <div class="editor-btn btn-minimize"></div>
+                                <div class="editor-btn btn-maximize"></div>
+                            </div>
+                        </div>
+                        <div class="editor-body">
+                            <div class="line-numbers">
+                                <span>1</span>
+                                <span>2</span>
+                                <span>3</span>
+                                <span>4</span>
+                                <span>5</span>
+                                <span>6</span>
+                                <span>7</span>
+                                <span>8</span>
+                                <span>9</span>
+                                <span>10</span>
+                                <span>11</span>
+                                <span>12</span>
+                                <span>13</span>
+                                <span>14</span>
+                                <span>15</span>
+                                <span>16</span>
+                                <span>17</span>
+                                <span>18</span>
+                                <span>19</span>
+                                <span>20</span>
+                            </div>
+                            <div class="code-content">
+                                <pre><code class="language-javascript">const statObserver = new IntersectionObserver(
+    entries => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            
+            const item = entry.target;
+            const numberEl = item.querySelector(".stat-number");
+            const target = parseInt(item.dataset.value, 10);
+            const suffix = item.dataset.suffix || "";
+            let current = 0;
+            const increment = target / 60;
+            
+            const interval = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    numberEl.textContent = target + suffix;
+                    clearInterval(interval);
+                } else {
+                    numberEl.textContent = Math.round(current) + suffix;
+                }
+            }, 2000 / 60);
+            
+            statObserver.unobserve(item);
+        });
+    },
+    { threshold: 0.4 }
+);</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==================== HTML SECTION ==================== -->
+            <section id="html">
+                <h2>🏗️ HTML Structure</h2>
+
+                <div class="info-box">
+                    <strong>File:</strong> <code>index.html</code> (133 lines)<br>
+                    <strong>Architecture:</strong> Component-based modular structure
+                </div>
+
+                <h3>Main HTML File</h3>
+
+                <div class="code-editor">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <div class="editor-tab active">
+                                <span class="file-icon">🌐</span>
+                                <span>index.html</span>
+                            </div>
+                        </div>
+                        <div class="editor-controls">
+                            <div class="editor-btn btn-close"></div>
+                            <div class="editor-btn btn-minimize"></div>
+                            <div class="editor-btn btn-maximize"></div>
+                        </div>
+                    </div>
+                    <div class="editor-body">
+                        <div class="line-numbers">
+                            <span>1</span>
+                            <span>2</span>
+                            <span>3</span>
+                            <span>4</span>
+                            <span>5</span>
+                            <span>6</span>
+                            <span>7</span>
+                            <span>8</span>
+                            <span>9</span>
+                            <span>10</span>
+                            <span>11</span>
+                            <span>12</span>
+                            <span>13</span>
+                            <span>14</span>
+                            <span>15</span>
+                            <span>16</span>
+                            <span>17</span>
+                            <span>18</span>
+                            <span>19</span>
+                            <span>20</span>
+                            <span>21</span>
+                            <span>22</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;EduTech - Transform Your Future&lt;/title&gt;
+    &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- Container divs for dynamically loaded components --&gt;
+    &lt;div id="navbar"&gt;&lt;/div&gt;
+    &lt;div id="hero-section"&gt;&lt;/div&gt;
+    &lt;div id="courses-section"&gt;&lt;/div&gt;
+    &lt;div id="features-section"&gt;&lt;/div&gt;
+    &lt;div id="stats-section"&gt;&lt;/div&gt;
+    &lt;div id="testimonials-section"&gt;&lt;/div&gt;
+    &lt;div id="cta-section"&gt;&lt;/div&gt;
+    &lt;div id="footer"&gt;&lt;/div&gt;
+    
+    &lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Component Loading Script</h3>
+                <p>Each component is loaded asynchronously using the Fetch API:</p>
+
+                <div class="code-editor">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <div class="editor-tab active">
+                                <span class="file-icon">📄</span>
+                                <span>component-loader.js</span>
+                            </div>
+                        </div>
+                        <div class="editor-controls">
+                            <div class="editor-btn btn-close"></div>
+                            <div class="editor-btn btn-minimize"></div>
+                            <div class="editor-btn btn-maximize"></div>
+                        </div>
+                    </div>
+                    <div class="editor-body">
+                        <div class="line-numbers">
+                            <span>1</span>
+                            <span>2</span>
+                            <span>3</span>
+                            <span>4</span>
+                            <span>5</span>
+                            <span>6</span>
+                            <span>7</span>
+                            <span>8</span>
+                            <span>9</span>
+                            <span>10</span>
+                            <span>11</span>
+                            <span>12</span>
+                            <span>13</span>
+                            <span>14</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-javascript">// Load Navbar component
+fetch("components/Navbar.html")
+    .then(res => res.text())
+    .then(data => {
+        document.getElementById("navbar").innerHTML = data;
+    });
+
+// Load Hero Section
+fetch("components/HeroSection.html")
+    .then(res => res.text())
+    .then(data => {
+        document.getElementById("hero-section").innerHTML = data;
+    });
+
+// ... and so on for all components</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Container ID</th>
+                            <th>Component File</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>#navbar</code></td>
+                            <td>Navbar.html</td>
+                            <td>Fixed navigation with logo, links, theme toggle</td>
+                        </tr>
+                        <tr>
+                            <td><code>#hero-section</code></td>
+                            <td>HeroSection.html</td>
+                            <td>Landing section with heading, CTA, stats</td>
+                        </tr>
+                        <tr>
+                            <td><code>#courses-section</code></td>
+                            <td>CoursesSection.html</td>
+                            <td>Course cards showcase</td>
+                        </tr>
+                        <tr>
+                            <td><code>#features-section</code></td>
+                            <td>FeaturesSection.html</td>
+                            <td>Platform features/benefits</td>
+                        </tr>
+                        <tr>
+                            <td><code>#stats-section</code></td>
+                            <td>StatsSection.html</td>
+                            <td>Animated statistics</td>
+                        </tr>
+                        <tr>
+                            <td><code>#testimonials-section</code></td>
+                            <td>TestimonialsSection.html</td>
+                            <td>Student testimonials</td>
+                        </tr>
+                        <tr>
+                            <td><code>#cta-section</code></td>
+                            <td>CTASection.html</td>
+                            <td>Final call-to-action</td>
+                        </tr>
+                        <tr>
+                            <td><code>#footer</code></td>
+                            <td>Footer.html</td>
+                            <td>Footer with links and info</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- ==================== CSS SECTION ==================== -->
+            <section id="css">
+                <h2>🎨 CSS Sections</h2>
+
+                <div class="info-box">
+                    <strong>File:</strong> <code>style.css</code> (1,317 lines)<br>
+                    <strong>Approach:</strong> CSS Variables + Component-based styling
+                </div>
+
+                <h3>CSS Variables (Theme System)</h3>
+
+                <div class="code-editor">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <div class="editor-tab active">
+                                <span class="file-icon">🎨</span>
+                                <span>style.css</span>
+                            </div>
+                        </div>
+                        <div class="editor-controls">
+                            <div class="editor-btn btn-close"></div>
+                            <div class="editor-btn btn-minimize"></div>
+                            <div class="editor-btn btn-maximize"></div>
+                        </div>
+                    </div>
+                    <div class="editor-body">
+                        <div class="line-numbers">
+                            <span>1</span>
+                            <span>2</span>
+                            <span>3</span>
+                            <span>4</span>
+                            <span>5</span>
+                            <span>6</span>
+                            <span>7</span>
+                            <span>8</span>
+                            <span>9</span>
+                            <span>10</span>
+                            <span>11</span>
+                            <span>12</span>
+                            <span>13</span>
+                            <span>14</span>
+                            <span>15</span>
+                            <span>16</span>
+                            <span>17</span>
+                            <span>18</span>
+                            <span>19</span>
+                            <span>20</span>
+                            <span>21</span>
+                            <span>22</span>
+                            <span>23</span>
+                            <span>24</span>
+                            <span>25</span>
+                            <span>26</span>
+                            <span>27</span>
+                            <span>28</span>
+                            <span>29</span>
+                            <span>30</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-css">/* Dark Mode Variables (Default) */
+:root {
+    --page-bg: #0f172a;           /* Dark navy background */
+    --bg: rgba(15, 23, 42, 0.8);  /* Semi-transparent dark */
+    --text: #f8fafc;              /* Light text */
+    --muted: #9ca3af;             /* Gray text */
+    --primary: #3b82f6;           /* Blue accent */
+    --border: #1f2937;            /* Dark borders */
+    --accent: #fbbf24;            /* Yellow accent */
+    --accent-text: #0f172a;       /* Dark text on accent */
+}
+
+/* Light Mode Variables (Override) */
+:root[data-theme="light"] {
+    --page-bg: #f8fafc;           /* Light gray background */
+    --bg: rgba(255, 255, 255, 0.85);
+    --text: #0f172a;              /* Dark text */
+    --muted: #4b5563;             /* Darker gray */
+    --primary: #2563eb;           /* Darker blue */
+    --border: #e6e9ef;            /* Light borders */
+    --accent: #f59e0b;            /* Orange accent */
+    --accent-text: #ffffff;       /* White text on accent */
+}
+
+/* Usage Example */
+body {
+    background: var(--page-bg);
+    color: var(--text);
+    transition: background-color 0.28s ease, color 0.28s ease;
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Navbar Styles</h3>
+                <p><span class="line-range">Lines 68-218</span> - Fixed navigation with glassmorphism effect</p>
+
+                <div class="code-editor">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <div class="editor-tab active">
+                                <span class="file-icon">🎨</span>
+                                <span>style.css</span>
+                            </div>
+                        </div>
+                        <div class="editor-controls">
+                            <div class="editor-btn btn-close"></div>
+                            <div class="editor-btn btn-minimize"></div>
+                            <div class="editor-btn btn-maximize"></div>
+                        </div>
+                    </div>
+                    <div class="editor-body">
+                        <div class="line-numbers">
+                            <span>1</span>
+                            <span>2</span>
+                            <span>3</span>
+                            <span>4</span>
+                            <span>5</span>
+                            <span>6</span>
+                            <span>7</span>
+                            <span>8</span>
+                            <span>9</span>
+                            <span>10</span>
+                            <span>11</span>
+                            <span>12</span>
+                            <span>13</span>
+                            <span>14</span>
+                            <span>15</span>
+                            <span>16</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-css">/* Navbar - Fixed at top with blur effect */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    background: var(--bg);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text);
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Hero Section Styles</h3>
+                <p><span class="line-range">Lines 220-462</span> - Landing section with gradients and animations</p>
+
+                <div class="code-editor">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <div class="editor-tab active">
+                                <span class="file-icon">🎨</span>
+                                <span>style.css</span>
+                            </div>
+                        </div>
+                        <div class="editor-controls">
+                            <div class="editor-btn btn-close"></div>
+                            <div class="editor-btn btn-minimize"></div>
+                            <div class="editor-btn btn-maximize"></div>
+                        </div>
+                    </div>
+                    <div class="editor-body">
+                        <div class="line-numbers">
+                            <span>1</span>
+                            <span>2</span>
+                            <span>3</span>
+                            <span>4</span>
+                            <span>5</span>
+                            <span>6</span>
+                            <span>7</span>
+                            <span>8</span>
+                            <span>9</span>
+                            <span>10</span>
+                            <span>11</span>
+                            <span>12</span>
+                            <span>13</span>
+                            <span>14</span>
+                            <span>15</span>
+                            <span>16</span>
+                            <span>17</span>
+                            <span>18</span>
+                            <span>19</span>
+                            <span>20</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-css">/* Hero Section - Full viewport height */
+.hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Gradient background overlay */
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse at top right, rgba(251, 191, 36, 0.15), transparent 50%),
+        radial-gradient(ellipse at bottom left, rgba(59, 130, 246, 0.2), transparent 50%);
+    z-index: 0;
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Animations</h3>
+
+                <div class="code-editor">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <div class="editor-tab active">
+                                <span class="file-icon">🎨</span>
+                                <span>animations.css</span>
+                            </div>
+                        </div>
+                        <div class="editor-controls">
+                            <div class="editor-btn btn-close"></div>
+                            <div class="editor-btn btn-minimize"></div>
+                            <div class="editor-btn btn-maximize"></div>
+                        </div>
+                    </div>
+                    <div class="editor-body">
+                        <div class="line-numbers">
+                            <span>1</span>
+                            <span>2</span>
+                            <span>3</span>
+                            <span>4</span>
+                            <span>5</span>
+                            <span>6</span>
+                            <span>7</span>
+                            <span>8</span>
+                            <span>9</span>
+                            <span>10</span>
+                            <span>11</span>
+                            <span>12</span>
+                            <span>13</span>
+                            <span>14</span>
+                            <span>15</span>
+                            <span>16</span>
+                            <span>17</span>
+                            <span>18</span>
+                            <span>19</span>
+                            <span>20</span>
+                            <span>21</span>
+                            <span>22</span>
+                            <span>23</span>
+                            <span>24</span>
+                            <span>25</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-css">/* Fade-up animation */
+.fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-up.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Floating animation for decorative icons */
+@keyframes float {
+    0% { transform: translateY(-10px); }
+    50% { transform: translateY(10px); }
+    100% { transform: translateY(-10px); }
+}
+
+.float {
+    animation: float 4s ease-in-out infinite;
+}
+
+/* Staggered delays */
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Responsive Design</h3>
+
+                <div class="code-editor">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <div class="editor-tab active">
+                                <span class="file-icon">🎨</span>
+                                <span>responsive.css</span>
+                            </div>
+                        </div>
+                        <div class="editor-controls">
+                            <div class="editor-btn btn-close"></div>
+                            <div class="editor-btn btn-minimize"></div>
+                            <div class="editor-btn btn-maximize"></div>
+                        </div>
+                    </div>
+                    <div class="editor-body">
+                        <div class="line-numbers">
+                            <span>1</span>
+                            <span>2</span>
+                            <span>3</span>
+                            <span>4</span>
+                            <span>5</span>
+                            <span>6</span>
+                            <span>7</span>
+                            <span>8</span>
+                            <span>9</span>
+                            <span>10</span>
+                            <span>11</span>
+                            <span>12</span>
+                            <span>13</span>
+                            <span>14</span>
+                            <span>15</span>
+                            <span>16</span>
+                            <span>17</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-css">/* Mobile-first approach */
+.courses-grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr; /* 1 column on mobile */
+}
+
+/* Tablet breakpoint */
+@media (min-width: 768px) {
+    .courses-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    }
+}
+
+/* Desktop breakpoint */
+@media (min-width: 1024px) {
+    .courses-grid {
+        grid-template-columns: repeat(4, 1fr); /* 4 columns */
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==================== COMPONENTS SECTION ==================== -->
+            <section id="components">
+                <h2>🧩 HTML Components</h2>
+
+                <div class="info-box">
+                    <strong>Location:</strong> <code>components/</code> folder<br>
+                    <strong>Total Components:</strong> 8 HTML files
+                </div>
+
+                <h3>Navbar Component</h3>
+
+                <div class="code-editor">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <div class="editor-tab active">
+                                <span class="file-icon">🌐</span>
+                                <span>Navbar.html</span>
+                            </div>
+                        </div>
+                        <div class="editor-controls">
+                            <div class="editor-btn btn-close"></div>
+                            <div class="editor-btn btn-minimize"></div>
+                            <div class="editor-btn btn-maximize"></div>
+                        </div>
+                    </div>
+                    <div class="editor-body">
+                        <div class="line-numbers">
+                            <span>1</span>
+                            <span>2</span>
+                            <span>3</span>
+                            <span>4</span>
+                            <span>5</span>
+                            <span>6</span>
+                            <span>7</span>
+                            <span>8</span>
+                            <span>9</span>
+                            <span>10</span>
+                            <span>11</span>
+                            <span>12</span>
+                            <span>13</span>
+                            <span>14</span>
+                            <span>15</span>
+                            <span>16</span>
+                            <span>17</span>
+                            <span>18</span>
+                            <span>19</span>
+                            <span>20</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-html">&lt;nav&gt;
+  &lt;div class="container"&gt;
+    &lt;div class="nav-inner"&gt;
+      &lt;!-- Logo --&gt;
+      &lt;a href="#" class="logo"&gt;
+        &lt;div class="logo-icon"&gt;🎓&lt;/div&gt;
+        &lt;span&gt;EduTech&lt;/span&gt;
+      &lt;/a&gt;
+
+      &lt;!-- Desktop Links --&gt;
+      &lt;div class="nav-links"&gt;
+        &lt;a href="#courses"&gt;Courses&lt;/a&gt;
+        &lt;a href="#features"&gt;Features&lt;/a&gt;
+        &lt;a href="#about"&gt;About&lt;/a&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Theme Toggle Button --&gt;
+      &lt;button id="themeToggle"&gt;🌙&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/nav&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Hero Section Component</h3>
+
+                <div class="code-editor">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <div class="editor-tab active">
+                                <span class="file-icon">🌐</span>
+                                <span>HeroSection.html</span>
+                            </div>
+                        </div>
+                        <div class="editor-controls">
+                            <div class="editor-btn btn-close"></div>
+                            <div class="editor-btn btn-minimize"></div>
+                            <div class="editor-btn btn-maximize"></div>
+                        </div>
+                    </div>
+                    <div class="editor-body">
+                        <div class="line-numbers">
+                            <span>1</span>
+                            <span>2</span>
+                            <span>3</span>
+                            <span>4</span>
+                            <span>5</span>
+                            <span>6</span>
+                            <span>7</span>
+                            <span>8</span>
+                            <span>9</span>
+                            <span>10</span>
+                            <span>11</span>
+                            <span>12</span>
+                            <span>13</span>
+                            <span>14</span>
+                            <span>15</span>
+                            <span>16</span>
+                            <span>17</span>
+                            <span>18</span>
+                            <span>19</span>
+                            <span>20</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-html">&lt;section class="hero"&gt;
+  &lt;!-- Floating decorative icons --&gt;
+  &lt;div class="float right"&gt;📘&lt;/div&gt;
+  &lt;div class="float left"&gt;🏆&lt;/div&gt;
+
+  &lt;div class="container"&gt;
+    &lt;div class="hero-content fade-up"&gt;
+      &lt;!-- Badge with animated dot --&gt;
+      &lt;div class="hero-badge fade-up delay-1"&gt;
+        &lt;span class="dot"&gt;&lt;/span&gt;
+        &lt;span&gt;New: AI-Powered Learning Paths&lt;/span&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Main heading with gradient text --&gt;
+      &lt;h1 class="fade-up delay-2"&gt;
+        Transform Your Future &lt;br/&gt;
+        &lt;span class="text-gradient"&gt;Through Education&lt;/span&gt;
+      &lt;/h1&gt;
+
+      &lt;!-- CTA Buttons --&gt;
+      &lt;div class="hero-actions fade-up delay-4"&gt;
+        &lt;button class="btn btn-lg btn-accent"&gt;
+          Start Learning Free →
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Course Card Component</h3>
+
+                <div class="code-editor">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <div class="editor-tab active">
+                                <span class="file-icon">🌐</span>
+                                <span>CourseCard.html</span>
+                            </div>
+                        </div>
+                        <div class="editor-controls">
+                            <div class="editor-btn btn-close"></div>
+                            <div class="editor-btn btn-minimize"></div>
+                            <div class="editor-btn btn-maximize"></div>
+                        </div>
+                    </div>
+                    <div class="editor-body">
+                        <div class="line-numbers">
+                            <span>1</span>
+                            <span>2</span>
+                            <span>3</span>
+                            <span>4</span>
+                            <span>5</span>
+                            <span>6</span>
+                            <span>7</span>
+                            <span>8</span>
+                            <span>9</span>
+                            <span>10</span>
+                            <span>11</span>
+                            <span>12</span>
+                            <span>13</span>
+                            <span>14</span>
+                            <span>15</span>
+                            <span>16</span>
+                            <span>17</span>
+                            <span>18</span>
+                            <span>19</span>
+                            <span>20</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-html">&lt;div class="course-card fade-up"&gt;
+  &lt;!-- Course Image --&gt;
+  &lt;div class="course-image"&gt;
+    &lt;img src="course-image.jpg" alt="Course"&gt;
+    &lt;div class="overlay"&gt;&lt;/div&gt;
+    &lt;span class="badge featured"&gt;Featured&lt;/span&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Course Content --&gt;
+  &lt;div class="course-content"&gt;
+    &lt;h3&gt;Web Development Bootcamp&lt;/h3&gt;
+    &lt;p&gt;Master HTML, CSS, JavaScript and modern frameworks&lt;/p&gt;
+    
+    &lt;div class="course-meta"&gt;
+      &lt;span class="rating"&gt;⭐ 4.8&lt;/span&gt;
+      &lt;span&gt;12,450 students&lt;/span&gt;
+    &lt;/div&gt;
+
+    &lt;div class="course-cta"&gt;
+      &lt;span class="price"&gt;$49.99&lt;/span&gt;
+      &lt;button class="enroll-btn"&gt;Enroll Now&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Summary -->
+            <section>
+                <h2>📊 Project Summary</h2>
+
+                <div class="success-box">
+                    <h3>Project Statistics</h3>
+                    <ul>
+                        <li><strong>Total Files:</strong> 12 (1 main HTML, 8 components, 1 CSS, 1 JS, 1 doc)</li>
+                        <li><strong>Total Lines of Code:</strong> ~1,600+ lines</li>
+                        <li><strong>JavaScript Functions:</strong> 5 main functions + 2 observers</li>
+                        <li><strong>HTML Components:</strong> 8 modular sections</li>
+                        <li><strong>CSS Sections:</strong> 11 major sections</li>
+                        <li><strong>CSS Variables:</strong> 20+ theme-aware variables</li>
+                        <li><strong>Responsive Breakpoints:</strong> 3 (640px, 768px, 1024px)</li>
+                        <li><strong>Animations:</strong> 6 types (fade, float, ping, glow, hover, counter)</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h3>Key Technologies Used</h3>
+                    <ul>
+                        <li><strong>HTML5:</strong> Semantic markup, data attributes</li>
+                        <li><strong>CSS3:</strong> Variables, Grid, Flexbox, Animations, Gradients, Blur</li>
+                        <li><strong>JavaScript ES6+:</strong> Fetch API, IntersectionObserver, Arrow functions</li>
+                        <li><strong>localStorage:</strong> Theme persistence</li>
+                        <li><strong>SVG:</strong> Decorative graphics</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <h3>Design Patterns Used</h3>
+                    <ul>
+                        <li><strong>Component-Based Architecture:</strong> Modular HTML files</li>
+                        <li><strong>CSS Variables:</strong> Centralized theming</li>
+                        <li><strong>Progressive Enhancement:</strong> Works without JS, enhanced with JS</li>
+                        <li><strong>Mobile-First Design:</strong> Base styles for mobile, enhanced for desktop</li>
+                        <li><strong>Observer Pattern:</strong> IntersectionObserver for scroll effects</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <p><strong>🎓 EduTech Code Documentation</strong></p>
+            <p>Complete technical breakdown with interactive code editor</p>
+            <p style="margin-top: 1rem; opacity: 0.8;">Generated: December 2024</p>
+        </footer>
+    </div>
+
+    <script>
+        // Initialize syntax highlighting
+        document.addEventListener('DOMContentLoaded', () => {
+            hljs.highlightAll();
+        });
+    </script>
+</body>
+
+</html>
